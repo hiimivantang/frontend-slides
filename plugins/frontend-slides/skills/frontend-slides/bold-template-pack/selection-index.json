@@ -2,7 +2,7 @@
   "schema_version": 1,
   "pack_name": "Beautiful HTML Templates - Bold Design Pack",
   "source_repo": "zarazhangrui/beautiful-html-templates",
-  "template_count": 34,
+  "template_count": 35,
   "usage": {
     "selection": "Read this compact index first to shortlist bold templates from metadata.",
     "previews": "For title-slide previews, read only the preview_md files for the shortlisted bold candidates.",
@@ -853,6 +853,31 @@
       "avoid_for": "Contexts that need visual heat or pop — the navy + warm-yellow Cormorant aesthetic is intentionally low-tempo.",
       "preview_md": "bold-template-pack/templates/vellum/preview.md",
       "design_md": "bold-template-pack/templates/vellum/design.md"
+    },
+    {
+      "slug": "zilliz",
+      "name": "Zilliz Brand",
+      "tagline": "Official Zilliz brand: near-black canvas with the signature sky→blue→purple→berry gradient, Inter + IBM Plex Mono, luminous and technical.",
+      "mood": [
+        "modern",
+        "technical",
+        "confident",
+        "luminous",
+        "on-brand"
+      ],
+      "tone": [
+        "precise",
+        "gradient-forward",
+        "engineering",
+        "premium"
+      ],
+      "formality": "medium-high",
+      "density": "medium",
+      "scheme": "dark",
+      "best_for": "Any Zilliz-branded deck — product launches, technical keynotes, developer-facing talks, investor updates, and internal Zilliz communications. The default choice whenever the deck must read as official Zilliz, with the brand gradient and vector-database register front and center.",
+      "avoid_for": "Non-Zilliz brand work, or contexts that need a warm/light/print register — the dark gradient-forward system is committed to the Zilliz identity.",
+      "preview_md": "bold-template-pack/templates/zilliz/preview.md",
+      "design_md": "bold-template-pack/templates/zilliz/design.md"
     }
   ]
 }

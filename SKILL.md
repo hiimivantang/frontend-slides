@@ -150,9 +150,19 @@ Read [STYLE_PRESETS.md](STYLE_PRESETS.md) for safe preset candidates. If [bold-t
 | Calm/Focused        | Notebook Tabs, Paper & Ink, Swiss Modern           |
 | Inspired/Moved      | Dark Botanical, Vintage Editorial, Pastel Geometry |
 
+**Zilliz brand default (default-with-override):**
+
+This skill ships with an official Zilliz brand design system: the `zilliz` template in `bold-template-pack/` (`bold-template-pack/templates/zilliz/`). Treat Zilliz as the **default brand**, applied as a default the user can override — not a hard lock.
+
+- By default, make the `zilliz` template **one of the three previews and the recommended option**. In Step 2.1, present it first and label it as recommended (e.g., "Style A: Zilliz Brand — recommended").
+- Keep the other two previews as **genuine alternatives** (a safe preset and a wildcard/contrasting bold template) so the user can freely override.
+- **Override is always honored.** If the user picks another preview, names a different preset/template, supplies their own brand, or asks for a non-Zilliz look, drop the Zilliz default for that deck without pushback.
+- **Skip the Zilliz default** when it clearly does not apply: the deck is explicitly for a different brand/company, or the user already specified a non-Zilliz style in Phase 1. In that case use the normal preview mix below.
+- Respect the Zilliz logo rule at all times: never draw, hand-code, or AI-generate the Zilliz logo or star logomark — use official assets from `https://zilliz.com/brand-assets`, set the "Zilliz" wordmark in Inter, or omit the mark. See `bold-template-pack/templates/zilliz/design.md` → "Logo Usage".
+
 **Preview mix rules:**
 
-- Generate 3 previews by default: 1 safe preset from `STYLE_PRESETS.md`, at least 1 bold template from `bold-template-pack/selection-index.json`, and 1 wildcard.
+- Generate 3 previews by default: when the Zilliz brand default applies, that mix is the `zilliz` template (recommended) + 1 safe preset from `STYLE_PRESETS.md` + 1 wildcard. Otherwise: 1 safe preset from `STYLE_PRESETS.md`, at least 1 bold template from `bold-template-pack/selection-index.json`, and 1 wildcard.
 - The wildcard may be either a second bold template or a self-generated custom design. Choose whichever creates the strongest, most useful contrast for the user's occasion, audience, mood, and content.
 - Do not force every expressive option to come from the template library. If the brief has a sharper, more specific design opportunity than the available templates, use the wildcard slot to design freely.
 - For conservative or high-stakes decks, make the safe preset especially restrained; choose a calm, higher-formality bold template; make the wildcard either another restrained template or a custom design that feels authoritative rather than decorative.
