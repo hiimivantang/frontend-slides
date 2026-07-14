@@ -15,10 +15,10 @@ colors:
   text: "#FFFFFF"
   text-muted: "#A9B0C0"
   text-light: "#6B7180"
-  border: "rgba(255, 255, 255, 0.10)"
-  border-blue: "rgba(23, 95, 255, 0.35)"
-  card-bg: "rgba(255, 255, 255, 0.04)"
-  card-bg-blue: "rgba(23, 95, 255, 0.08)"
+  border: "rgba(255, 255, 255, 0.20)"
+  border-blue: "rgba(73, 140, 255, 0.55)"
+  card-bg: "rgba(255, 255, 255, 0.09)"
+  card-bg-blue: "rgba(23, 95, 255, 0.16)"
   gradient: "linear-gradient(135deg, #49BCFF 0%, #175FFF 30%, #7F47FF 65%, #C84CFF 100%)"
   gradient-hero: "linear-gradient(135deg, #80F0E0 0%, #49BCFF 20%, #175FFF 45%, #7F47FF 75%, #C84CFF 100%)"
 
@@ -154,13 +154,13 @@ components:
     border: "1px solid {colors.border}"
     borderRadius: 16px
     padding: "1.6rem 1.7rem"
-    description: "Primary content card. A barely-lifted translucent white surface (4% white) with a 10% white hairline border and 16px radius on the black canvas. No drop shadow — elevation reads from the translucent fill + hairline."
+    description: "Primary content card. A clearly-lifted translucent white surface (9% white) with a 20% white hairline border and 16px radius on the black canvas. No drop shadow — elevation reads from the translucent fill + hairline."
   card-blue:
     background: "{colors.card-bg-blue}"
     border: "1px solid {colors.border-blue}"
     borderRadius: 16px
     padding: "1.6rem 1.7rem"
-    description: "Accent variant of the content card, tinted Zilliz Blue at 8% with a 35% blue border. Used to single out a focal card (a headline metric, a primary feature)."
+    description: "Accent variant of the content card, tinted Zilliz Blue at 16% with a 55% blue border. Used to single out a focal card (a headline metric, a primary feature)."
   gradient-cta:
     background: "{colors.gradient}"
     color: "#FFFFFF"
@@ -234,14 +234,14 @@ Zilliz Brand is the **official Zilliz design system** for decks that must read a
 
 The type system uses two open Google fonts in fixed roles. **Inter** (weights 300–700) is the display + body face — every headline, every paragraph, every metric numeral. **IBM Plex Mono** (weight 400–600) is the technical chrome face — eyebrows, tag pills, slide counters, mono labels, code, and any "vector database / engineering" register cue. The Inter / IBM Plex Mono pairing is the system's typographic signature: humanist-sans headlines over precise-mono labels reads as modern, technical, and trustworthy.
 
-Depth is **luminous, not shadowed**. Cards are translucent white (`{colors.card-bg}` — white at 4%) with hairline borders (`{colors.border}` — white at 10%); the focal card uses a blue tint (`{colors.card-bg-blue}`). The black canvas gains depth from heavily-blurred gradient **glow orbs** bled off the edges, never from drop shadows on content. The only glow is the soft blue lift on the CTA hover.
+Depth is **luminous, not shadowed**. Cards are translucent white (`{colors.card-bg}` — white at 9%) with hairline borders (`{colors.border}` — white at 20%); the focal card uses a blue tint (`{colors.card-bg-blue}`). The black canvas gains depth from heavily-blurred gradient **glow orbs** bled off the edges, never from drop shadows on content. The only glow is the soft blue lift on the CTA hover.
 
 **Key Characteristics:**
 - Near-black ground (`{colors.bg}`) on every surface — luminous, never flat gray.
 - The Zilliz brand gradient (`{colors.gradient}`) as the single expressive device — used for one hero phrase, metric values, the accent line, bar fills, and the progress bar.
 - Solid Zilliz Blue (`{colors.primary}`) for non-gradient accents: links, borders, focal-card tint, solid chart marks.
 - Inter (display + body) + IBM Plex Mono (eyebrows, labels, code, chrome) — never substitute either.
-- Cards are translucent white at 4% with 10% white hairline borders and 16px radius. No drop shadows.
+- Cards are translucent white at 9% with 20% white hairline borders and 16px radius. No drop shadows.
 - Gradient-clipped hero text — applied only to the emphasis word(s), never a whole headline or body.
 - Atmospheric decoration from abstract "vector coordinate" diagonal lines, thin gradient arcs, and blurred glow orbs.
 - Persistent chrome: gradient progress bar at the bottom edge, mono slide-counter bottom-left, circular nav-arrows bottom-right.
@@ -257,6 +257,18 @@ The Zilliz logo and logomark are **off-limits to generation**. Do **not** draw, 
 - Clear space: 0.5X on the sides, 1X top/bottom (X = half the symbol height). Minimum height 24px; recommended 120 / 72 / 48px.
 - The `vector-lines` decoration evokes vector coordinates but **must not** be arranged to resemble the star logomark.
 
+## Card Contrast Floor (NON-NEGOTIABLE)
+
+The near-black canvas makes low-alpha surfaces disappear on projectors, compressed screen-shares (Zoom/Meet/Teams), dimmed laptop panels, and most non-OLED external displays. Values that look elegant on a calibrated OLED render as "text floating on black" everywhere else. Hard floors when generating on `{colors.bg}`:
+
+- **Card fills: never below 8% white** (`rgba(255,255,255,0.08)`). Default is `{colors.card-bg}` at 9%.
+- **Hairline borders: never below 18% white** (`rgba(255,255,255,0.18)`). Default is `{colors.border}` at 20%.
+- **Blue focal fills: never below 14% blue**; blue borders never below 45%. Defaults are 16% / 55%.
+- **Ghost/decorative numerals and watermarks: never below 8% white** — below that they simply don't exist off-OLED.
+- Hover states must land **at least 10 alpha points above** the resting border so the lift is perceptible.
+
+**Verification step (required):** after generating, screenshot the rendered deck and confirm every card edge is visibly separable from the canvas at a glance — then mentally subtract one brightness notch (projector test). If a card reads only by its text, raise the fill/border until the surface itself reads. Do not ship a slide whose panels are distinguishable from the background only on the machine that generated them.
+
 ## Colors
 
 ### Palette
@@ -271,10 +283,10 @@ The Zilliz logo and logomark are **off-limits to generation**. Do **not** draw, 
 - **Text** (`{colors.text}` — `#FFFFFF`): Primary text on the dark ground — headlines, primary content, metric labels.
 - **Text-muted** (`{colors.text-muted}` — `#A9B0C0`): Body paragraphs, descriptions — a cool gray that reads softer than white without disappearing.
 - **Text-light** (`{colors.text-light}` — `#6B7180`): Tertiary metadata, mono captions, counters.
-- **Border** (`{colors.border}` — white at 10%): Universal hairline border on translucent cards and chrome.
-- **Border-blue** (`{colors.border-blue}` — blue at 35%): Accent border on focal cards, tag pills, nav-buttons.
-- **Card-bg** (`{colors.card-bg}` — white at 4%): Universal translucent card fill.
-- **Card-bg-blue** (`{colors.card-bg-blue}` — blue at 8%): Focal-card and pill fill.
+- **Border** (`{colors.border}` — white at 20%): Universal hairline border on translucent cards and chrome.
+- **Border-blue** (`{colors.border-blue}` — blue at 55%): Accent border on focal cards, tag pills, nav-buttons.
+- **Card-bg** (`{colors.card-bg}` — white at 9%): Universal translucent card fill.
+- **Card-bg-blue** (`{colors.card-bg-blue}` — blue at 16%): Focal-card and pill fill.
 - **Gradient** (`{colors.gradient}`): The brand gradient, `135deg`, sky → blue → purple → berry. The single expressive device.
 - **Gradient-hero** (`{colors.gradient-hero}`): The luminous hero variant adding a teal lead-in (`#80F0E0`). Reserved for large hero/cover gradient fields and glow orbs.
 
@@ -382,7 +394,7 @@ Repeated grid patterns carry content density: 2×3 agenda grid, 3-column metric 
 ## Depth and Elevation
 
 ### Translucent Cards (Primary Depth Mechanism)
-Cards use `background: {colors.card-bg}` (white at 4%) + `border: 1px solid {colors.border}` (white at 10%) + 16px radius. They lift off the black ground without any offset. The focal card swaps to `{colors.card-bg-blue}` + `{colors.border-blue}` to pull one element forward.
+Cards use `background: {colors.card-bg}` (white at 9%) + `border: 1px solid {colors.border}` (white at 20%) + 16px radius. They lift off the black ground without any offset. The focal card swaps to `{colors.card-bg-blue}` + `{colors.border-blue}` to pull one element forward.
 
 ### Glow Orbs, Not Shadows
 There are no `box-shadow` declarations on content. Depth on the black canvas comes from large, heavily-blurred radial gradient **glow orbs** (blue→purple, `{colors.gradient-hero}` cores) bled off the edges at low opacity. The only shadow in the system is the soft blue glow on CTA hover: `0 8px 28px rgba(23, 95, 255, 0.35)`.
@@ -403,13 +415,13 @@ The brand gradient does the structural-accent work that a colored rule or shadow
 No square (0px) corners anywhere except the progress bar.
 
 ### Border Weights
-- **1px `{colors.border}`** (white 10%) — universal hairline on cards, code blocks, mini cells.
-- **1px `{colors.border-blue}`** (blue 35%) — focal cards, tag pills, nav-buttons.
+- **1px `{colors.border}`** (white 20%) — universal hairline on cards, code blocks, mini cells.
+- **1px `{colors.border-blue}`** (blue 55%) — focal cards, tag pills, nav-buttons.
 - Borders are **never opaque** — translucency is what gives the dark system its luminous, lifted quality.
 
 ### Decorative Element Types
 
-**Translucent card** (`{components.card}`) — white-at-4% fill, white-at-10% hairline, 16px radius. The primary content card.
+**Translucent card** (`{components.card}`) — white-at-9% fill, white-at-20% hairline, 16px radius. The primary content card.
 
 **Tag pill** (`{components.tag-pill}`) — blue-tinted mono pill in the slide-header top-right.
 
@@ -438,7 +450,7 @@ No square (0px) corners anywhere except the progress bar.
 - Use solid Zilliz Blue (`{colors.primary}`) for non-gradient accents: links, solid CTAs in tight spots, focal-card tint, solid chart marks.
 - Set headlines in `{colors.text}` white with negative tracking; gradient-clip only the emphasis word(s).
 - Set every eyebrow in IBM Plex Mono, uppercase, 0.12em tracking, sky blue. The mono eyebrow is the universal section opener.
-- Use `{components.card}` (white-at-4% + white-at-10% hairline + 16px radius) as the universal content card; promote one focal card with the blue variant.
+- Use `{components.card}` (white-at-9% + white-at-20% hairline + 16px radius) as the universal content card; promote one focal card with the blue variant.
 - Set body in Inter weight 400 in `{colors.text-muted}` with line-height 1.6.
 - Set code and technical data in IBM Plex Mono in sky blue or white on a translucent card.
 - Use `{colors.green}` only for genuine positive/success indicators.
@@ -463,7 +475,7 @@ Zilliz Brand is a **1920×1080 presentation system** (effective 100vw × 100vh).
 
 ### Interactive States
 - Nav-buttons fill with the gradient on hover (icon turns white).
-- Cards lift subtly on hover via a 1px brighter border (white 10% → 18%), no shadow.
+- Cards lift subtly on hover via a 1px brighter border (white 20% → 32%), no shadow.
 - CTA lifts -2px on hover with the soft blue glow (`0 8px 28px rgba(23,95,255,0.35)`).
 - Bar fills animate from 0 to value over 0.8s on slide entry.
 
@@ -500,7 +512,7 @@ The identity — near-black ground, one brand gradient, mono labels, luminous de
 1. Any new slide starts on `{colors.bg}` near-black. The constant ground is the identity.
 2. Any new content slide carries a slide-header: mono eyebrow (sky blue, uppercase, 0.12em) left + tag pill right.
 3. Any new headline is Inter weight 600–700 in white with negative tracking; gradient-clip only the emphasis word.
-4. Any new card uses `{components.card}` (white-at-4% + white-at-10% hairline + 16px). Promote one focal card with the blue variant.
+4. Any new card uses `{components.card}` (white-at-9% + white-at-20% hairline + 16px). Promote one focal card with the blue variant.
 5. Any new metric value is Inter weight 700, gradient-clipped, with an Inter label and muted-gray description.
 6. Any new accent line, bar fill, or progress indicator uses the brand gradient.
 7. Any new CTA uses `{components.gradient-cta}` — full-gradient pill, white text, 100px radius.
@@ -513,5 +525,6 @@ The identity — near-black ground, one brand gradient, mono labels, luminous de
 - **Inter and IBM Plex Mono load from Google Fonts** via preconnect + `<link>`. In environments where Google Fonts fail, the system collapses to `sans-serif` / `monospace` and loses character.
 - **The logo cannot be generated.** Without an official brand-asset file, the cover/closing uses the "Zilliz" wordmark in Inter or omits the mark entirely. This is intentional brand protection, not a limitation to work around.
 - **The gradient is contrast-sensitive on text.** Gradient-clipped text over the berry/purple end can dip in contrast against black at small sizes; reserve gradient-clip for large hero/metric type, keep small text white/sky.
+- **Low-alpha surfaces vanish off-OLED.** Earlier versions of this system used 4% card fills and 10% borders; on projectors and compressed screen-shares those are indistinguishable from the black canvas. The tokens now sit at 9%/20% — treat those as floors, not suggestions (see "Card Contrast Floor").
 - **Glow orbs can wash out body contrast** if placed behind paragraphs at high opacity; keep them off content regions or at low opacity.
 - **The single-gradient discipline limits categorical color encoding.** Multi-series charts should distinguish via solid blue/sky/purple/berry/green marks (their defined roles) rather than inventing new hues.
